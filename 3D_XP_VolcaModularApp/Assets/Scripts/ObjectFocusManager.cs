@@ -46,14 +46,17 @@ public class ObjectFocusManager : MonoBehaviour
     static public void Add (ObjectFocus objectFocus)
     {
         if (Instance.objectsInRange.Contains(objectFocus))
+        {
             return;
+        }
 
         Instance.objectsInRange.Add(objectFocus);
     }
 
     static void Sort()
     {
-        if (Instance.objectsInRange.Count > 1 )
+
+        if (Instance.objectsInRange.Count > 1)
             Instance.objectsInRange.Sort((a, b) => a.delta.CompareTo(b.delta));
 
         Instance.firstInList = Instance.objectsInRange.Count > 0 ? Instance.objectsInRange[0] : null;
@@ -68,24 +71,26 @@ public class ObjectFocusManager : MonoBehaviour
         get { return _firstInList;  }
         private set
         {
-            if(value != _firstInList)
+            if (value != _firstInList)
             {
                 if (_firstInList)
-                {
                     _firstInList.LostFocus();
 
-                    _firstInList = value;
+                _firstInList = value;
 
-                    if (_firstInList)
-                        _firstInList.GotFocus();
-                }
+                if (_firstInList)
+                    _firstInList.GotFocus();                
             }
         }
     }
 
+    public void TriggerAction()
+    {
+        firstInList.ActionTrigger();
+    }
 
     #endregion
-
+    #region Mono
     private void Awake()
     {
         if(Instance && Instance != this)
@@ -111,14 +116,16 @@ public class ObjectFocusManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Sort();
     }
 
+#if DEBUG
     private void OnGUI()
     {
         GUILayout.Label("Objects in Focus : " + Count.ToString());
         if (firstInList)
             GUILayout.Label("1st : " + firstInList.name); 
     }
-
+#endif
+#endregion
 }

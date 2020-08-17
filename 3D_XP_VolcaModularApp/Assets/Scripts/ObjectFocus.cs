@@ -9,6 +9,8 @@ public class ObjectFocus : MonoBehaviour
     [Serializable]
     public class FloatEvent : UnityEvent<float> { }
 
+    public AudioClip _audioClip;
+
     [SerializeField] Transform reference;
     [SerializeField] float minAngle = 10;
     [SerializeField] float maxAngle = 30;
@@ -21,6 +23,8 @@ public class ObjectFocus : MonoBehaviour
     [SerializeField] UnityEvent onGotFocus;
     [SerializeField] UnityEvent onLostFocus;
 
+    [SerializeField] UnityEvent onActionTrigger;
+         
     private float _fadeAmount = -1;
     public float fadeAmount
     {
@@ -48,8 +52,7 @@ public class ObjectFocus : MonoBehaviour
             {
                 _delta = value;
                 // TODO : Update Fade Amount Value 
-                fadeAmount = Mathf.InverseLerp(maxAngle, minAngle, _delta); 
-
+                fadeAmount = Mathf.InverseLerp(maxAngle, minAngle, _delta);
                 if(_delta <= minAngle)
                 {
                     ObjectFocusManager.Add(this);
@@ -77,17 +80,21 @@ public class ObjectFocus : MonoBehaviour
 
     public void GotFocus()
     {
-        Debug.Log(gameObject.name + " got focus");
+
+        //Debug.Log(gameObject.name + " got focus");
         onGotFocus.Invoke();
     }
 
     public void LostFocus()
     {
-        Debug.Log(gameObject.name + " got focus");
+        //Debug.Log(gameObject.name + " got focus");
         onGotFocus.Invoke();
     }
 
-
+    public void ActionTrigger()
+    {
+        onActionTrigger.Invoke();
+    }
 
     void Awake()
     {

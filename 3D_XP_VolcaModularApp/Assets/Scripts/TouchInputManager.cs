@@ -17,6 +17,8 @@ public class TouchInputManager : MonoBehaviour
     [SerializeField] FloatEvent onTouchTimerUpdate;
     [SerializeField] UnityEvent onTouchTimerEnd;
 
+    ObjectFocus lastObjectFocus = null; 
+
     float timer;
 
     // Start is called before the first frame update
@@ -28,26 +30,51 @@ public class TouchInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.touchCount > 0)
+        if (ObjectFocusManager.Instance.firstInList != null)
         {
-            switch (Input.touches[0].phase)
-            {
-                case TouchPhase.Began:
-                    timer = 0;
-                    onTouch.Invoke();
-                    break;
-                case TouchPhase.Ended:
-                    onTouchCancel.Invoke();
-                    break;
-                default:
-                    timer += Time.deltaTime;
-                    onTouchTimerUpdate.Invoke(timerUpdateCurve.Evaluate(Mathf.InverseLerp(0, delay, timer))); 
-                    if(timer > delay)
-                    {
-                        onTouchTimerEnd.Invoke();
-                    }
-                    break;
+            if (ObjectFocusManager.Instance.firstInList.Equals(lastObjectFocus)) {
+                timer += Time.deltaTime;
+                onTouchTimerUpdate.Invoke(timerUpdateCurve.Evaluate(Mathf.InverseLerp(0, delay, timer)));
+                if (timer > delay)
+                {
+                    onTouchTimerEnd.Invoke();
+                }
             }
+            else
+            {
+                onTouchCancel.Invoke();
+                timer = 0;
+                onTouch.Invoke();
+                lastObjectFocus = ObjectFocusManager.Instance.firstInList;
+            }
+        } else
+        {
+            onTouchCancel.Invoke();
+            timer = 0;
+
         }
+
+
+        /*if (Input.touchCount > 0)
+    {
+        switch (Input.touches[0].phase)
+        {
+            case TouchPhase.Began:
+                timer = 0;
+                onTouch.Invoke();
+                break;
+            case TouchPhase.Ended:
+                onTouchCancel.Invoke();
+                break;
+            default:
+                timer += Time.deltaTime;
+                onTouchTimerUpdate.Invoke(timerUpdateCurve.Evaluate(Mathf.InverseLerp(0, delay, timer))); 
+                if(timer > delay)
+                {
+                    onTouchTimerEnd.Invoke();
+                }
+                break;
+        }
+    }*/
     }
 }

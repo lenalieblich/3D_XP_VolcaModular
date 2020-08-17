@@ -17,6 +17,5 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         camRot = mainCamera.transform.eulerAngles;
-        Debug.Log(camRot);
     }
 }

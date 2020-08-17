@@ -3,7 +3,31 @@ guid: 2cbb366ba232a47fda5e887c61fb1a10
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 7242037060910605979, guid: b3fd9cf7bc38548b6a2c0cadd13e32f7,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 7242037060910605979, guid: b3fd9cf7bc38548b6a2c0cadd13e32f7,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OnButton
+    second: {fileID: 5975517438381085816, guid: b3fd9cf7bc38548b6a2c0cadd13e32f7,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ReglerSchwarz
+    second: {fileID: 7242037060910605979, guid: b3fd9cf7bc38548b6a2c0cadd13e32f7,
+      type: 3}
   materials:
     importMaterials: 1
     materialName: 0
