@@ -47,6 +47,8 @@ public class ObjectFocusManager : MonoBehaviour
     {
         if (Instance.objectsInRange.Contains(objectFocus))
         {
+
+
             return;
         }
 

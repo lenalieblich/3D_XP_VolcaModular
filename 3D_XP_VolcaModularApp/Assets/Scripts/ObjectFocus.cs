@@ -9,7 +9,7 @@ public class ObjectFocus : MonoBehaviour
     [Serializable]
     public class FloatEvent : UnityEvent<float> { }
 
-    public AudioClip _audioClip;
+    public bool isTrigger = true;
 
     [SerializeField] Transform reference;
     [SerializeField] float minAngle = 10;

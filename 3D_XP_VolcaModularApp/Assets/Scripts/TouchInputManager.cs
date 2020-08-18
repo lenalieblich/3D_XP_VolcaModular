@@ -32,20 +32,24 @@ public class TouchInputManager : MonoBehaviour
     {
         if (ObjectFocusManager.Instance.firstInList != null)
         {
-            if (ObjectFocusManager.Instance.firstInList.Equals(lastObjectFocus)) {
-                timer += Time.deltaTime;
-                onTouchTimerUpdate.Invoke(timerUpdateCurve.Evaluate(Mathf.InverseLerp(0, delay, timer)));
-                if (timer > delay)
-                {
-                    onTouchTimerEnd.Invoke();
-                }
-            }
-            else
+            if (ObjectFocusManager.Instance.firstInList.isTrigger)
             {
-                onTouchCancel.Invoke();
-                timer = 0;
-                onTouch.Invoke();
-                lastObjectFocus = ObjectFocusManager.Instance.firstInList;
+                if (ObjectFocusManager.Instance.firstInList.Equals(lastObjectFocus))
+                {
+                    timer += Time.deltaTime;
+                    onTouchTimerUpdate.Invoke(timerUpdateCurve.Evaluate(Mathf.InverseLerp(0, delay, timer)));
+                    if (timer > delay)
+                    {
+                        onTouchTimerEnd.Invoke();
+                    }
+                }
+                else
+                {
+                    onTouchCancel.Invoke();
+                    timer = 0;
+                    onTouch.Invoke();
+                    lastObjectFocus = ObjectFocusManager.Instance.firstInList;
+                }
             }
         } else
         {
